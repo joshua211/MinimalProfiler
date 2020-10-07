@@ -1,7 +1,22 @@
 # MinimalProfiler
 
 WIP Profiler that can track method execution speed by decorating it with one attribute. Required code is added at runtime using 
-Using [Harmony](https://github.com/pardeike/Harmony)
+[Harmony](https://github.com/pardeike/Harmony)
+
+
+- [MinimalProfiler](#minimalprofiler)
+  - [Getting started](#getting-started)
+  - [Options](#options)
+    - [Log](#log)
+    - [Format](#format)
+  - [Profiling](#profiling)
+    - [Measurements](#measurements)
+    - [Naming](#naming)
+    - [Different Profilers](#different-profilers)
+  - [Things to note](#things-to-note)
+      - [Async/Threaded](#asyncthreaded)
+      - [Complexity](#complexity)
+
 
 ## Getting started
 
@@ -52,6 +67,7 @@ You can change this by providing a ``DisplayName`` parameter to the `[ProfileMe]
 ### Different Profilers
 You can use different profilers for different Assemblies. 
 To do this, give each profiler a unique name and provide your `[ProfileMe]` attribute with the name of the desired profiler.
+A profiler will only patch methods that have have his profilername as an attribute argument or none.
 
 ```
 var profiler = Profiler.Create("uniquename")
@@ -61,4 +77,9 @@ public void Something()
 ```
 
 ## Things to note
-At this point, asnyc and threaded methods are not supported.
+#### Async/Threaded
+At this point, async and threaded methods are not supported.
+#### Complexity
+Currently at least one reflection call is made each time a profiled method is executed. 
+Since reflection is slow, this will increase the time used to execute the method by a few ticks.
+This is usually not a problem, but keep in mind that the measured time is not 100% accurate.
