@@ -64,13 +64,5 @@ namespace MinimalProfiler.Test
             Assert.Equal(expectedLogLevel, logResult.Level);
             Assert.Contains(excpectedMethodName, logResult.Entry);
         }
-
-        [Fact]
-        public void ShouldThrow()
-        {
-            var timeout = 1000;
-
-            Assert.ThrowsAny<Exception>(() => testBase.DoSomethingWithWrongProfiler(timeout));
-        }
     }
 }
