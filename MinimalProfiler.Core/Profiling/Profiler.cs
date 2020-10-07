@@ -19,13 +19,13 @@ namespace MinimalProfiler.Core.Profiling
         private readonly List<MethodInfo> methods;
         private readonly ILog log;
         private Harmony harmony;
-        private string loggingFormat;
+        private Func<ProfilingResult, string> format;
 
-        internal Profiler(string name, ILog log, IEnumerable<Assembly> assemblies, bool runOnBuild, string format)
+        internal Profiler(string name, ILog log, IEnumerable<Assembly> assemblies, bool runOnBuild, Func<ProfilingResult, string> format)
         {
             this.log = log;
             this.Name = name;
-            this.loggingFormat = format;
+            this.format = format;
 
             harmony = new Harmony(name);
             methods = new List<MethodInfo>();
@@ -52,10 +52,7 @@ namespace MinimalProfiler.Core.Profiling
 
         public void AddProfilingResult(ProfilingResult result)
         {
-            var ticks = result.Elapsed.Ticks;
-            var ms = result.Elapsed.Milliseconds;
-            var seconds = result.Elapsed.Milliseconds;
-            var logString = string.Format(loggingFormat, result.DisplayName, ticks, ms, seconds);
+            var logString = format(result);
 
             log.Info(logString);
         }
@@ -135,14 +132,14 @@ namespace MinimalProfiler.Core.Profiling
         private List<Assembly> Assemblies;
         private ILog log;
         private string name;
-        private string format;
+        private Func<ProfilingResult, string> format;
 
         internal ProfilerBuilder(string name)
         {
             Assemblies = new List<Assembly>();
             log = new ConsoleLog();
             this.name = name;
-            format = "{0} took {1} ticks | {2} ms to execute";
+            format = (r => $"{r.DisplayName} took ada {r.Elapsed.Ticks} ticks | {r.Elapsed.Milliseconds} ms to execute");
         }
 
         public ProfilerBuilder UseAssemblies(params Assembly[] assemblies)
@@ -152,7 +149,7 @@ namespace MinimalProfiler.Core.Profiling
             return this;
         }
 
-        public ProfilerBuilder UseFormat(string format)
+        public ProfilerBuilder UseFormat(Func<ProfilingResult, string> format)
         {
             this.format = format;
             return this;

@@ -8,6 +8,7 @@ WIP Profiler that can track method execution speed by decorating it with one att
   - [Getting started](#getting-started)
   - [Options](#options)
     - [Log](#log)
+    - [Build in loggers](#build-in-loggers)
     - [Format](#format)
   - [Profiling](#profiling)
     - [Measurements](#measurements)
@@ -52,8 +53,11 @@ You can provide your own logger, just create a class that implements `ILog` from
 ``
 var profiler = Profiler.Create().UseLog(log).Build()
 ``
+### Build in loggers
+Currently only a console log is available as the default logger. More integrations are planned (Serilog, ..)
 ### Format
-wip
+You can provide your own logging format by using ``ProfilerBuilder.UseFormat(Func<ProfilingResult, string>)``
+<br>The default format is '``{DisplayName} took {ticks} ticks | {ms} ms to execute``'
 
 ## Profiling
 ### Measurements
