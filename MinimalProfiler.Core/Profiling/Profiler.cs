@@ -33,7 +33,11 @@ namespace MinimalProfiler.Core.Profiling
             foreach (var assembly in assemblies)
                 methods.AddRange(assembly.GetTypes()
                           .SelectMany(t => t.GetMethods())
-                          .Where(m => m.GetCustomAttributes(typeof(ProfileMeAttribute), false).Length > 0));
+                          .Where(m =>
+                          {
+                              var attr = (ProfileMeAttribute)m.GetCustomAttributes(typeof(ProfileMeAttribute), false).FirstOrDefault();
+                              return attr != null && (attr.ProfilerName == Name || string.IsNullOrEmpty(attr.ProfilerName));
+                          }));
             Log($"Found {methods.Count} profileable methods in {assemblies.Count()} assemblies", LogLevel.Debug);
 
             if (runOnBuild)
