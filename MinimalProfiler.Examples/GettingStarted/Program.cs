@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MinimalProfiler.Core.Profiling;
 
 namespace GettingStarted
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var profiler = Profiler.Create()
                                     .UseAssemblies(typeof(Example).Assembly)
@@ -15,6 +16,7 @@ namespace GettingStarted
 
 
             example.DoSomething();
+            await example.AwaitSomething();
         }
     }
 }

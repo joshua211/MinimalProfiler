@@ -7,15 +7,16 @@ WIP Profiler that can track method execution speed by decorating it with one att
 - [MinimalProfiler](#minimalprofiler)
   - [Getting started](#getting-started)
   - [Options](#options)
+    - [Logging is WIP and will be replaced soon](#logging-is-wip-and-will-be-replaced-soon)
     - [Log](#log)
     - [Build in loggers](#build-in-loggers)
     - [Format](#format)
   - [Profiling](#profiling)
     - [Measurements](#measurements)
+    - [Async](#async)
     - [Naming](#naming)
     - [Different Profilers](#different-profilers)
   - [Things to note](#things-to-note)
-      - [Async/Threaded](#asyncthreaded)
       - [Complexity](#complexity)
 
 
@@ -48,6 +49,7 @@ Thats all, the profiler should now print the execution result to the console onc
 ` [INF] DoSomething took 45677700 ticks | 567 ms to execute `
 
 ## Options
+### Logging is WIP and will be replaced soon
 ### Log
 You can provide your own logger, just create a class that implements `ILog` from 'MinimalProfiler.Core.Logging', and tell your profiler to use it
 ``
@@ -62,6 +64,9 @@ You can provide your own logging format by using ``ProfilerBuilder.UseFormat(Fun
 ## Profiling
 ### Measurements
 Currently only time measurement is supported
+### Async
+To profile an Async method, use the ``[ProfileMeAsync]`` Attribute. All parameters work the same with the async version.  
+The target method has to return a **Task**  
 ### Naming
 By default, the profiler will take the method name to use for logging.
 You can change this by providing a ``DisplayName`` parameter to the `[ProfileMe]` attribute.
@@ -69,9 +74,9 @@ You can change this by providing a ``DisplayName`` parameter to the `[ProfileMe]
 [ProfileMe("DifferentName")]
 ```
 ### Different Profilers
-You can use different profilers for different Assemblies. 
-To do this, give each profiler a unique name and provide your `[ProfileMe]` attribute with the name of the desired profiler.
-A profiler will only patch methods that have have his profilername as an attribute argument or none.
+You can use different profilers in the same project. 
+To do this, give each profiler a unique name and provide your `[ProfileMe]` attribute with the `ProfilerName` parameter.
+A profiler will only try to patch methods that have no `ProfilerName` parameter or his own.
 
 ```
 var profiler = Profiler.Create("uniquename")
@@ -81,8 +86,6 @@ public void Something()
 ```
 
 ## Things to note
-#### Async/Threaded
-At this point, async and threaded methods are not supported.
 #### Complexity
 Currently at least one reflection call is made each time a profiled method is executed. 
 Since reflection is slow, this will increase the time used to execute the method by a few ticks.

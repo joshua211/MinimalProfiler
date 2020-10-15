@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Threading;
 using MinimalProfiler.Core.Attributes;
@@ -13,6 +14,12 @@ namespace GettingStarted
             {
                 //something
             }
+        }
+
+        [ProfileMeAsync]
+        public async Task AwaitSomething()
+        {
+            await Task.Delay(2000);
         }
     }
 }

@@ -4,13 +4,16 @@ namespace MinimalProfiler.Core.Profiling
 {
     public class ProfilingResult
     {
-        public TimeSpan Elapsed { get; private set; }
+        /* We use ProfilingTime because for some reason,
+         Watch.Elapsed and Watch.ElapsedTicks is not the same in an async context */
+
+        public ProfilingTime Time { get; private set; }
         public string DisplayName { get; private set; }
 
-        public ProfilingResult(TimeSpan elapsed, string displayName)
+        public ProfilingResult(string displayName, ProfilingTime time)
         {
-            Elapsed = elapsed;
             DisplayName = displayName;
+            Time = time;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace MinimalProfiler.Test
             Thread.Sleep(timeout);
         }
 
-        [ProfileMe]
+        [ProfileMeAsync]
         public async Task DoSomethingAsync(int timeout)
         {
             await Task.Delay(timeout);

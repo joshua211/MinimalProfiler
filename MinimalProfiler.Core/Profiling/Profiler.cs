@@ -6,6 +6,7 @@ using System.Text;
 using HarmonyLib;
 using MinimalProfiler.Core.Attributes;
 using MinimalProfiler.Core.Logging;
+using MinimalProfiler.Core.Profiling.Enums;
 using MinimalProfiler.Core.Profiling.Internal;
 
 namespace MinimalProfiler.Core.Profiling
@@ -16,7 +17,7 @@ namespace MinimalProfiler.Core.Profiling
 
         private bool isRunning;
         private bool isPatched;
-        private readonly List<MethodInfo> methods;
+        private readonly List<PatchMethod> methods;
         private readonly ILog log;
         private Harmony harmony;
         private Func<ProfilingResult, string> format;
@@ -28,15 +29,22 @@ namespace MinimalProfiler.Core.Profiling
             this.format = format;
 
             harmony = new Harmony(name);
-            methods = new List<MethodInfo>();
+            methods = new List<PatchMethod>();
 
             foreach (var assembly in assemblies)
                 methods.AddRange(assembly.GetTypes()
                           .SelectMany(t => t.GetMethods())
                           .Where(m =>
                           {
-                              var attr = (ProfileMeAttribute)m.GetCustomAttributes(typeof(ProfileMeAttribute), false).FirstOrDefault();
+                              var attr = (IProfilerAttribute)m.GetCustomAttributes().Where(a => a is IProfilerAttribute).FirstOrDefault();
                               return attr != null && (attr.ProfilerName == Name || string.IsNullOrEmpty(attr.ProfilerName));
+                          }).Select(m =>
+                          {
+                              //TODO make this better, don't return attributes twice
+                              var attr = m.GetCustomAttributes().Where(a => a is IProfilerAttribute).FirstOrDefault();
+                              if (attr is ProfileMeAttribute)
+                                  return new PatchMethod(m, ProfilingPatchType.Normal);
+                              return new PatchMethod(m, ProfilingPatchType.Async);
                           }));
             Log($"Found {methods.Count} profileable methods in {assemblies.Count()} assemblies", LogLevel.Debug);
 
@@ -102,14 +110,17 @@ namespace MinimalProfiler.Core.Profiling
         {
             var profilerPrefix = AccessTools.Method(typeof(ProfilingMethods), "StartProfiling");
             var profilerPostfix = AccessTools.Method(typeof(ProfilingMethods), "StopProfiling");
+            var profilerPostfixAsync = AccessTools.Method(typeof(ProfilingMethods), "StopProfilingAsync");
 
             Log($"Patching with prefix {profilerPrefix.Name} and postfix {profilerPostfix.Name}");
             int patchedMethods = 0;
-            foreach (var method in methods)
+            foreach (var info in methods)
             {
+                var method = info.Method;
                 try
                 {
-                    harmony.Patch(method, new HarmonyMethod(profilerPrefix), new HarmonyMethod(profilerPostfix));
+                    var postfix = info.PatchType == ProfilingPatchType.Normal ? profilerPostfix : profilerPostfixAsync;
+                    harmony.Patch(info.Method, new HarmonyMethod(profilerPrefix), new HarmonyMethod(postfix));
                     patchedMethods++;
                     Log($"Patched {method.Name}");
                 }
@@ -125,42 +136,5 @@ namespace MinimalProfiler.Core.Profiling
 
         public static ProfilerBuilder Create(string profilerName = "profiler") => new ProfilerBuilder(profilerName);
 
-    }
-
-    public class ProfilerBuilder
-    {
-        private List<Assembly> Assemblies;
-        private ILog log;
-        private string name;
-        private Func<ProfilingResult, string> format;
-
-        internal ProfilerBuilder(string name)
-        {
-            Assemblies = new List<Assembly>();
-            log = new ConsoleLog();
-            this.name = name;
-            format = (r => $"{r.DisplayName} took ada {r.Elapsed.Ticks} ticks | {r.Elapsed.Milliseconds} ms to execute");
-        }
-
-        public ProfilerBuilder UseAssemblies(params Assembly[] assemblies)
-        {
-            Assemblies.AddRange(assemblies);
-
-            return this;
-        }
-
-        public ProfilerBuilder UseFormat(Func<ProfilingResult, string> format)
-        {
-            this.format = format;
-            return this;
-        }
-
-        public ProfilerBuilder UseLog(ILog log)
-        {
-            this.log = log;
-            return this;
-        }
-
-        public Profiler Build(bool run = true) => new Profiler(name, log, Assemblies, run, format);
     }
 }

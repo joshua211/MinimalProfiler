@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace MinimalProfiler.Core.Profiling
@@ -23,7 +24,8 @@ namespace MinimalProfiler.Core.Profiling
         public ProfilingResult Stop()
         {
             Watch.Stop();
-            return new ProfilingResult(Watch.Elapsed, DisplayName);
+            System.Console.WriteLine(Watch.ElapsedTicks);
+            return new ProfilingResult(DisplayName, new ProfilingTime(Watch));
         }
     }
 }

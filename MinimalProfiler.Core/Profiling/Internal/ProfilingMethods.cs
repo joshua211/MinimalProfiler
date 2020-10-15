@@ -1,8 +1,10 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Threading.Tasks;
 using MinimalProfiler.Core.Attributes;
 
 namespace MinimalProfiler.Core.Profiling.Internal
@@ -11,7 +13,7 @@ namespace MinimalProfiler.Core.Profiling.Internal
     {
         public static void StartProfiling(out ProfilingState __state, MethodInfo __originalMethod)
         {
-            var attr = (ProfileMeAttribute)__originalMethod.GetCustomAttribute(typeof(ProfileMeAttribute));
+            var attr = (IProfilerAttribute)__originalMethod.GetCustomAttributes().Where(a => a is IProfilerAttribute).FirstOrDefault();
             __state = new ProfilingState(attr.DisplayName, attr.ProfilerName);
             __state.Start();
         }
@@ -24,6 +26,22 @@ namespace MinimalProfiler.Core.Profiling.Internal
                                             globalState.GetDefault() :
                                             globalState.GetProfiler(__state.ProfilerName);
             profiler.AddProfilingResult(result);
+        }
+
+        public static void StopProfilingAsync(ref Task __result, ProfilingState __state)
+        {
+            var contin =
+                __result.ContinueWith(T =>
+                {
+                    var globalState = GlobalProfilingState.GetInstance;
+                    var result = __state.Stop();
+                    var profiler = string.IsNullOrEmpty(__state.ProfilerName) ?
+                                                    globalState.GetDefault() :
+                                                    globalState.GetProfiler(__state.ProfilerName);
+                    profiler.AddProfilingResult(result);
+                });
+
+            contin.Wait();
         }
 
     }
