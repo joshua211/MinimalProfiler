@@ -1,21 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using MinimalProfiler.Core.Logging;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace MinimalProfiler.Core.Profiling
 {
     public class ProfilerBuilder
     {
         private List<Assembly> Assemblies;
-        private ILog log;
+        private ILogger log;
         private string name;
         private Func<ProfilingResult, string> format;
 
         internal ProfilerBuilder(string name)
         {
             Assemblies = new List<Assembly>();
-            log = new ConsoleLog();
+            var provider = LoggerFactory.Create(b => b.AddConsole());
+            log = provider.CreateLogger("profiling");
             this.name = name;
             format = (r => $"{r.DisplayName} took {r.Time.Ticks} ticks | {r.Time.Milliseconds} ms to execute");
         }
@@ -33,7 +35,7 @@ namespace MinimalProfiler.Core.Profiling
             return this;
         }
 
-        public ProfilerBuilder UseLog(ILog log)
+        public ProfilerBuilder UseLog(ILogger log)
         {
             this.log = log;
             return this;

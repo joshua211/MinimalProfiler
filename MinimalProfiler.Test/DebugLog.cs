@@ -1,48 +1,53 @@
 using System;
 using System.Collections.Generic;
-using MinimalProfiler.Core.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace MinimalProfiler.Test
 {
-    public class DebugLog : ILog
+    public class DebugLog : ILogger<DebugLogEntry>, IDisposable
     {
         public Stack<DebugLogEntry> LogStack { get; private set; }
+        public bool HasError { get; private set; }
+        public bool HasWarning { get; private set; }
+        public bool HasCritical { get; private set; }
 
         public DebugLog()
         {
             LogStack = new Stack<DebugLogEntry>();
         }
 
-        public void Critical(string s, Exception e = null)
+        public IDisposable BeginScope<TState>(TState state) => this;
+
+        public void Dispose()
         {
-            LogStack.Push(new DebugLogEntry(s, LogLevel.Critical));
+
         }
 
-        public void Debug(string s, Exception e = null)
-        {
-            LogStack.Push(new DebugLogEntry(s, LogLevel.Debug));
-        }
+        public bool IsEnabled(LogLevel logLevel) => true;
 
-        public void Info(string s, Exception e = null)
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            LogStack.Push(new DebugLogEntry(s, LogLevel.Info));
-        }
+            var logString = formatter(state, exception);
+            LogStack.Push(new DebugLogEntry(logLevel, logString));
 
-        public void Verbose(string s, Exception e = null)
-        {
-            LogStack.Push(new DebugLogEntry(s, LogLevel.Verbose));
+            if (logLevel == LogLevel.Critical)
+                HasCritical = true;
+            else if (logLevel == LogLevel.Error)
+                HasError = true;
+            else if (logLevel == LogLevel.Warning)
+                HasWarning = true;
         }
     }
 
     public class DebugLogEntry
     {
-        public string Entry { get; private set; }
         public LogLevel Level { get; private set; }
+        public string LogMessage { get; private set; }
 
-        public DebugLogEntry(string entry, LogLevel level)
+        public DebugLogEntry(LogLevel level, string logMessage)
         {
-            Entry = entry;
             Level = level;
+            LogMessage = logMessage;
         }
     }
 }

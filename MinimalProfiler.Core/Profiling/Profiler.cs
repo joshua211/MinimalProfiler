@@ -4,8 +4,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using HarmonyLib;
+using Microsoft.Extensions.Logging;
 using MinimalProfiler.Core.Attributes;
-using MinimalProfiler.Core.Logging;
 using MinimalProfiler.Core.Profiling.Enums;
 using MinimalProfiler.Core.Profiling.Internal;
 
@@ -18,11 +18,11 @@ namespace MinimalProfiler.Core.Profiling
         private bool isRunning;
         private bool isPatched;
         private readonly List<PatchMethod> methods;
-        private readonly ILog log;
+        private readonly ILogger log;
         private Harmony harmony;
         private Func<ProfilingResult, string> format;
 
-        internal Profiler(string name, ILog log, IEnumerable<Assembly> assemblies, bool runOnBuild, Func<ProfilingResult, string> format)
+        internal Profiler(string name, ILogger log, IEnumerable<Assembly> assemblies, bool runOnBuild, Func<ProfilingResult, string> format)
         {
             this.log = log;
             this.Name = name;
@@ -62,27 +62,13 @@ namespace MinimalProfiler.Core.Profiling
         {
             var logString = format(result);
 
-            log.Info(logString);
+            log.LogInformation(logString);
         }
 
-        private void Log(string content, LogLevel level = LogLevel.Verbose, Exception e = null)
+        private void Log(string content, LogLevel level = LogLevel.Trace, Exception e = null)
         {
             var s = "Profiler: " + content;
-            switch (level)
-            {
-                case LogLevel.Verbose:
-                    log.Verbose(s, e);
-                    break;
-                case LogLevel.Debug:
-                    log.Debug(s, e);
-                    break;
-                case LogLevel.Info:
-                    log.Info(s, e);
-                    break;
-                case LogLevel.Critical:
-                    log.Critical(s, e);
-                    break;
-            }
+            log.Log(level, content, e);
         }
 
         public void Start()
@@ -126,7 +112,7 @@ namespace MinimalProfiler.Core.Profiling
                 }
                 catch (Exception e)
                 {
-                    log.Critical($"Failed to patch {method.Name}", e);
+                    Log($"Failed to patch {method.Name}", LogLevel.Critical, e);
                 }
             }
             Log($"Patched {patchedMethods} methods", LogLevel.Debug);

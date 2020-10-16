@@ -27,7 +27,7 @@ namespace MinimalProfiler.Test
             var excpected = "test";
             testBase.DoSomething(100);
 
-            Assert.Equal(excpected, log.LogStack.Pop().Entry);
+            Assert.Equal(excpected, log.LogStack.Pop().LogMessage);
         }
     }
 }

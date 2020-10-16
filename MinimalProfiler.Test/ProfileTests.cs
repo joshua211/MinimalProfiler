@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using MinimalProfiler.Core.Logging;
+using Microsoft.Extensions.Logging;
 using MinimalProfiler.Core.Profiling;
 using Xunit;
 
@@ -26,7 +26,7 @@ namespace MinimalProfiler.Test
         [Fact]
         public void DoSomethingShouldProduceValidLogEntry()
         {
-            var expectedLogLevel = LogLevel.Info;
+            var expectedLogLevel = LogLevel.Information;
             var excpectedMethodName = "DoSomething";
             var timeout = 1000;
 
@@ -34,13 +34,13 @@ namespace MinimalProfiler.Test
 
             var logResult = log.LogStack.Pop();
             Assert.Equal(expectedLogLevel, logResult.Level);
-            Assert.Contains(excpectedMethodName, logResult.Entry);
+            Assert.Contains(excpectedMethodName, logResult.LogMessage);
         }
 
         [Fact]
         public async Task DoSomethingAsyncTest()
         {
-            var expectedLogLevel = LogLevel.Info;
+            var expectedLogLevel = LogLevel.Information;
             var excpectedMethodName = "DoSomething";
             var timeout = 2000;
 
@@ -48,13 +48,13 @@ namespace MinimalProfiler.Test
 
             var logResult = log.LogStack.Pop();
             Assert.Equal(expectedLogLevel, logResult.Level);
-            Assert.Contains(excpectedMethodName, logResult.Entry);
+            Assert.Contains(excpectedMethodName, logResult.LogMessage);
         }
 
         [Fact]
         public void DoSomethingDifferentShouldUseDifferentName()
         {
-            var expectedLogLevel = LogLevel.Info;
+            var expectedLogLevel = LogLevel.Information;
             var excpectedMethodName = "SomethingDifferent";
             var timeout = 1000;
 
@@ -62,7 +62,7 @@ namespace MinimalProfiler.Test
 
             var logResult = log.LogStack.Pop();
             Assert.Equal(expectedLogLevel, logResult.Level);
-            Assert.Contains(excpectedMethodName, logResult.Entry);
+            Assert.Contains(excpectedMethodName, logResult.LogMessage);
         }
     }
 }
