@@ -25,7 +25,12 @@ namespace MinimalProfiler.Core.Profiling.Internal
 
         public void RegisterProfiler(Profiler profiler) => AllProfilers[profiler.Name] = profiler;
 
-        public Profiler GetProfiler(string name) => AllProfilers[name];
+        public Profiler GetProfiler(string name)
+        {
+            if (AllProfilers.Count > 1)
+                return AllProfilers[name];
+            return GetDefault();
+        }
 
         public Profiler GetDefault() => AllProfilers.Values.First();
 

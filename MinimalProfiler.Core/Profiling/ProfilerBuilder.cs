@@ -17,7 +17,7 @@ namespace MinimalProfiler.Core.Profiling
         {
             Assemblies = new List<Assembly>();
             var provider = LoggerFactory.Create(b => b.AddConsole());
-            log = provider.CreateLogger("profiling");
+            log = provider.CreateLogger("Profiling");
             this.name = name;
             format = (r => $"{r.DisplayName} took {r.Time.Ticks} ticks | {r.Time.Milliseconds} ms to execute");
         }

@@ -24,7 +24,6 @@ namespace MinimalProfiler.Core.Profiling
         public ProfilingResult Stop()
         {
             Watch.Stop();
-            System.Console.WriteLine(Watch.ElapsedTicks);
             return new ProfilingResult(DisplayName, new ProfilingTime(Watch));
         }
     }

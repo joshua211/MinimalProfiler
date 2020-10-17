@@ -55,19 +55,18 @@ namespace MinimalProfiler.Core.Profiling
             }
 
             GlobalProfilingState.GetInstance.RegisterProfiler(this);
-            Log("Profiler created");
+            Log($"Profiler created: {log}, {assemblies}");
         }
 
         public void AddProfilingResult(ProfilingResult result)
         {
             var logString = format(result);
 
-            log.LogInformation(logString);
+            Log(logString, LogLevel.Information);
         }
 
         private void Log(string content, LogLevel level = LogLevel.Trace, Exception e = null)
         {
-            var s = "Profiler: " + content;
             log.Log(level, content, e);
         }
 
@@ -98,7 +97,6 @@ namespace MinimalProfiler.Core.Profiling
             var profilerPostfix = AccessTools.Method(typeof(ProfilingMethods), "StopProfiling");
             var profilerPostfixAsync = AccessTools.Method(typeof(ProfilingMethods), "StopProfilingAsync");
 
-            Log($"Patching with prefix {profilerPrefix.Name} and postfix {profilerPostfix.Name}");
             int patchedMethods = 0;
             foreach (var info in methods)
             {
@@ -106,9 +104,9 @@ namespace MinimalProfiler.Core.Profiling
                 try
                 {
                     var postfix = info.PatchType == ProfilingPatchType.Normal ? profilerPostfix : profilerPostfixAsync;
+                    Log($"Trying to patch {method.Name} with {profilerPrefix.Name} and {postfix.Name}");
                     harmony.Patch(info.Method, new HarmonyMethod(profilerPrefix), new HarmonyMethod(postfix));
                     patchedMethods++;
-                    Log($"Patched {method.Name}");
                 }
                 catch (Exception e)
                 {
