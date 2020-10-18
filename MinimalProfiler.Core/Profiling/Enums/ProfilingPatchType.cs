@@ -1,6 +1,6 @@
 namespace MinimalProfiler.Core.Profiling.Enums
 {
-    public enum ProfilingPatchType
+    internal enum ProfilingPatchType
     {
         Normal,
         Async

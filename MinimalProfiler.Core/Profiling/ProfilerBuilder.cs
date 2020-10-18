@@ -6,6 +6,9 @@ using Microsoft.Extensions.Logging.Console;
 
 namespace MinimalProfiler.Core.Profiling
 {
+    /// <summary>
+    /// Class to build the Profiler with fluid syntax
+    /// </summary>
     public class ProfilerBuilder
     {
         private List<Assembly> Assemblies;

@@ -1,9 +1,9 @@
 using System;
 using System.Diagnostics;
 
-namespace MinimalProfiler.Core.Profiling
+namespace MinimalProfiler.Core.Profiling.Internal
 {
-    public class ProfilingState
+    internal class ProfilingState
     {
         public Stopwatch Watch { get; set; }
         public string DisplayName { get; set; }

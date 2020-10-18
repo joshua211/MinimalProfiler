@@ -1,6 +1,9 @@
 using System.Diagnostics;
 namespace MinimalProfiler.Core.Profiling
 {
+    /// <summary>
+    /// Model class to store information about profiling time
+    /// </summary>
     public class ProfilingTime
     {
         public long Ticks { get; private set; }

@@ -11,6 +11,9 @@ using MinimalProfiler.Core.Profiling.Internal;
 
 namespace MinimalProfiler.Core.Profiling
 {
+    /// <summary>
+    /// Main class of this application which is used to patch methods, evaluate results and print logs
+    /// </summary>
     public class Profiler
     {
         public string Name { get; private set; }
