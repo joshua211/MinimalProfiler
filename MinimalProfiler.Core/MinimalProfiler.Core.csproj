@@ -2,7 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>minimalprofiler</PackageId>
+    <Version>1.0.0</Version>
+    <Titel>Minimal Net Core Profiler </Titel>
+    <Authors>Joshua Hillmann</Authors>
+    <PackageTags>dotnetCore;Profiler;MinimalProfiler;Profiling;TimeMeasurement;ExecutionTime</PackageTags>
+    <PackageDescription>
+      A minimal, code only profiler written in C# for net core. Can track method execution time 
+      by adding a single attribute to a method and log results.
+    </PackageDescription>
+    <PackageProjectUrl>
+      https://github.com/joshua211/MinimalProfiler/tree/master
+    </PackageProjectUrl>
+    <RepositoryUrl>
+      https://github.com/joshua211/MinimalProfiler/tree/master
+    </RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
+
+
 
   <ItemGroup>
     <PackageReference Include="Lib.Harmony" Version="2.0.2" />

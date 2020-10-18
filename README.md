@@ -1,11 +1,15 @@
 # MinimalProfiler
 
-WIP Profiler that can track method execution speed by decorating it with one attribute. Required code is added at runtime using 
+A minimal, easy to use method profiler for dotnet Core.  
+Designed to profile method execution by adding a simple attribute to the method.  
+Required code is added at runtime using 
 [Harmony](https://github.com/pardeike/Harmony)
 
 
 - [MinimalProfiler](#minimalprofiler)
   - [Getting started](#getting-started)
+    - [Install](#install)
+    - [Setup](#setup)
   - [Profiler](#profiler)
     - [Fluid syntax](#fluid-syntax)
     - [Dependency Injection](#dependency-injection)
@@ -22,8 +26,18 @@ WIP Profiler that can track method execution speed by decorating it with one att
 
 
 ## Getting started
+### Install
+Install from [nuget](https://www.nuget.org/packages/minimalprofiler/1.0.0).  
+```
+dotnet add package minimalprofiler
+```  
+or clone from Github 
+```
+git clone git@github.com:joshua211/MinimalProfiler.git
+```
 
-Create an instance of `Profiler` using ``Profiler.Create()`` and give him a list of assemblies to search from.
+### Setup
+Create an instance of `Profiler` using ``Profiler.Create()`` and specify a list of assemblies to search from.
 ```
  var profiler = Profiler.Create()
                         .UseAssemblies(typeof(Example).Assembly)
