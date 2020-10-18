@@ -2,23 +2,20 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using MinimalProfiler.Core.Profiling;
+using MinimalProfiler.Test.Fixtures;
 using Xunit;
 
 namespace MinimalProfiler.Test
 {
-    public class ProfileTests
+    public class ProfileTests : IClassFixture<SingleFixture>
     {
         private readonly TestBase testBase;
         private readonly Profiler profiler;
         private readonly DebugLog log;
 
-        public ProfileTests()
+        public ProfileTests(SingleFixture fixture)
         {
-            log = new DebugLog(LogLevel.Trace);
-            profiler = Profiler.Create()
-                                .UseLog(log)
-                                .UseAssemblies(typeof(TestBase).Assembly)
-                                .Build();
+            log = fixture.Log;
 
             testBase = new TestBase();
         }
@@ -28,7 +25,7 @@ namespace MinimalProfiler.Test
         {
             var expectedLogLevel = LogLevel.Information;
             var excpectedMethodName = "DoSomething";
-            var timeout = 1000;
+            var timeout = 100;
 
             testBase.DoSomething(timeout);
 

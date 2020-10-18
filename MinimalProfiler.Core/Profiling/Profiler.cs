@@ -42,6 +42,9 @@ namespace MinimalProfiler.Core.Profiling
             harmony = new Harmony(name);
             methods = new List<PatchMethod>();
 
+            if (GlobalProfilingState.GetInstance.DoesProfilerExists(name))
+                throw new Exception($"A profiler with the name '{name}' already exists for this application");
+
             if (!assemblies.Any())
                 Log("No assemblies specified, so no profiling can be done", LogLevel.Warning);
 

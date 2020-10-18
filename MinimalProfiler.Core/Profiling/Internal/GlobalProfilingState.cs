@@ -25,6 +25,8 @@ namespace MinimalProfiler.Core.Profiling.Internal
 
         public void RegisterProfiler(Profiler profiler) => AllProfilers[profiler.Name] = profiler;
 
+        public bool DoesProfilerExists(string name) => AllProfilers.Keys.Contains(name);
+
         public Profiler GetProfiler(string name)
         {
             if (AllProfilers.Count > 1)
