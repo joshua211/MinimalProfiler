@@ -22,6 +22,17 @@ namespace MinimalProfiler.Core.Profiling
         private Harmony harmony;
         private Func<ProfilingResult, string> format;
 
+        /// <summary>
+        /// The constructor used for dependency injection
+        /// </summary>
+        /// <param name="logger"></param>
+        public Profiler(ILogger<Profiler> logger)
+                : this("Profiler", logger, new[] { Assembly.GetEntryAssembly() }, false
+                , r => $"{r.DisplayName} took {r.Time.Ticks} ticks | {r.Time.Milliseconds} ms to execute")
+        {
+
+        }
+
         internal Profiler(string name, ILogger log, IEnumerable<Assembly> assemblies, bool runOnBuild, Func<ProfilingResult, string> format)
         {
             this.log = log;
@@ -30,6 +41,9 @@ namespace MinimalProfiler.Core.Profiling
 
             harmony = new Harmony(name);
             methods = new List<PatchMethod>();
+
+            if (!assemblies.Any())
+                Log("No assemblies specified, so no profiling can be done", LogLevel.Warning);
 
             foreach (var assembly in assemblies)
                 methods.AddRange(assembly.GetTypes()
@@ -58,7 +72,7 @@ namespace MinimalProfiler.Core.Profiling
             Log($"Profiler created: {log}, {assemblies}");
         }
 
-        public void AddProfilingResult(ProfilingResult result)
+        internal void AddProfilingResult(ProfilingResult result)
         {
             var logString = format(result);
 
@@ -70,6 +84,9 @@ namespace MinimalProfiler.Core.Profiling
             log.Log(level, content, e);
         }
 
+        /// <summary>
+        /// Starts the profiling and patches all methods if not already done
+        /// </summary>
         public void Start()
         {
             Log("Starting profiling", LogLevel.Debug);
@@ -82,6 +99,9 @@ namespace MinimalProfiler.Core.Profiling
             isRunning = true;
         }
 
+        /// <summary>
+        /// Stops profiling
+        /// </summary>
         public void Stop()
         {
             Log("Stopping profiling", LogLevel.Debug);
@@ -118,6 +138,11 @@ namespace MinimalProfiler.Core.Profiling
             isPatched = true;
         }
 
+        /// <summary>
+        /// Create a new instance of ProfilerBuilder to create a Profiler with fluid syntax
+        /// </summary>
+        /// <param name="profilerName">The unique name of the profiler</param>
+        /// <returns>A default ProfilerBuilder instance with initial settings</returns>
         public static ProfilerBuilder Create(string profilerName = "profiler") => new ProfilerBuilder(profilerName);
 
     }

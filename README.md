@@ -6,10 +6,11 @@ WIP Profiler that can track method execution speed by decorating it with one att
 
 - [MinimalProfiler](#minimalprofiler)
   - [Getting started](#getting-started)
+  - [Profiler](#profiler)
+    - [Fluid syntax](#fluid-syntax)
+    - [Dependency Injection](#dependency-injection)
   - [Options](#options)
-    - [Logging is WIP and will be replaced soon](#logging-is-wip-and-will-be-replaced-soon)
-    - [Log](#log)
-    - [Build in loggers](#build-in-loggers)
+    - [Logging](#logging)
     - [Format](#format)
   - [Profiling](#profiling)
     - [Measurements](#measurements)
@@ -48,15 +49,20 @@ Thats all, the profiler should now print the execution result to the console onc
 
 ` [INF] DoSomething took 45677700 ticks | 567 ms to execute `
 
+## Profiler
+The main instance of this library, which is used to patch methods and log profiling results.  
+There two ways to create a Profiler.
+### Fluid syntax
+Call `Profiler.Create()` to get a new instance of `ProfilerBuilder` and build your own Profiler. Default behaviour is to patch all methods and start profiling once `.Build(bool run = true)` is called.
+### Dependency Injection
+You can add the profiler to the `IServiceCollection` and manually call `.Start()` to patch and start profiling.
+```
+services.AddSingleton<Profiler>();
+```
+This profiler will use the default log format and search in the calling assembly for methods with the `[ProfileMe]` attribute.
 ## Options
-### Logging is WIP and will be replaced soon
-### Log
-You can provide your own logger, just create a class that implements `ILog` from 'MinimalProfiler.Core.Logging', and tell your profiler to use it
-``
-var profiler = Profiler.Create().UseLog(log).Build()
-``
-### Build in loggers
-Currently only a console log is available as the default logger. More integrations are planned (Serilog, ..)
+### Logging
+If no logger is specified, the profiler will log to the console. You can use any logger that implements the `ILogger` interface by using ``.UseLog(ILogger logger)`` on the `ProfilerBuilder`.
 ### Format
 You can provide your own logging format by using ``ProfilerBuilder.UseFormat(Func<ProfilingResult, string>)``
 <br>The default format is '``{DisplayName} took {ticks} ticks | {ms} ms to execute``'
