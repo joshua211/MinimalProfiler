@@ -12,7 +12,7 @@ namespace MinimalProfiler.Test
 
         public FormatTest()
         {
-            log = new DebugLog();
+            log = new DebugLog(Microsoft.Extensions.Logging.LogLevel.Trace);
             profiler = Profiler.Create()
                                 .UseFormat(r => $"test")
                                 .UseLog(log)

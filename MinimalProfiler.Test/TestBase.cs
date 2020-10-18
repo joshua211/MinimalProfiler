@@ -29,5 +29,17 @@ namespace MinimalProfiler.Test
         {
             Thread.Sleep(timeout);
         }
+
+        [ProfileMe(profilerName: "profiler_1")]
+        public void DoSomethingForProfiler_1(int timeout)
+        {
+            Thread.Sleep(timeout);
+        }
+
+        [ProfileMe(profilerName: "profiler_2")]
+        public void DoSomethingForProfiler_2(int timeout)
+        {
+            Thread.Sleep(timeout);
+        }
     }
 }

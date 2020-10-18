@@ -6,14 +6,19 @@ namespace MinimalProfiler.Test
 {
     public class DebugLog : ILogger<DebugLogEntry>, IDisposable
     {
+        private readonly LogLevel level;
+
         public Stack<DebugLogEntry> LogStack { get; private set; }
         public bool HasError { get; private set; }
         public bool HasWarning { get; private set; }
         public bool HasCritical { get; private set; }
 
-        public DebugLog()
+        public int Count => LogStack.Count;
+
+        public DebugLog(LogLevel level)
         {
             LogStack = new Stack<DebugLogEntry>();
+            this.level = level;
         }
 
         public IDisposable BeginScope<TState>(TState state) => this;
@@ -27,6 +32,9 @@ namespace MinimalProfiler.Test
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
+            if ((int)logLevel < (int)level)
+                return;
+
             var logString = formatter(state, exception);
             LogStack.Push(new DebugLogEntry(logLevel, logString));
 

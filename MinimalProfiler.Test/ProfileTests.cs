@@ -14,7 +14,7 @@ namespace MinimalProfiler.Test
 
         public ProfileTests()
         {
-            log = new DebugLog();
+            log = new DebugLog(LogLevel.Trace);
             profiler = Profiler.Create()
                                 .UseLog(log)
                                 .UseAssemblies(typeof(TestBase).Assembly)
@@ -42,7 +42,7 @@ namespace MinimalProfiler.Test
         {
             var expectedLogLevel = LogLevel.Information;
             var excpectedMethodName = "DoSomething";
-            var timeout = 2000;
+            var timeout = 200;
 
             await testBase.DoSomethingAsync(timeout);
 
@@ -56,7 +56,7 @@ namespace MinimalProfiler.Test
         {
             var expectedLogLevel = LogLevel.Information;
             var excpectedMethodName = "SomethingDifferent";
-            var timeout = 1000;
+            var timeout = 100;
 
             testBase.DoSomethingDifferent(timeout);
 
