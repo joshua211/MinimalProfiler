@@ -35,6 +35,12 @@ or clone from Github
 ```
 git clone git@github.com:joshua211/MinimalProfiler.git
 ```
+Since Harmony is using binary serializer, you have to enable unsafe binary serialization in the .csproj file
+```
+  <PropertyGroup>
+    <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+  </PropertyGroup>
+```
 
 ### Setup
 Create an instance of `Profiler` using ``Profiler.Create()`` and specify a list of assemblies to search from.
@@ -67,7 +73,7 @@ Thats all, the profiler should now print the execution result to the console onc
 The main instance of this library, which is used to patch methods and log profiling results.  
 There two ways to create a Profiler.
 ### Fluid syntax
-Call `Profiler.Create()` to get a new instance of `ProfilerBuilder` and build your own Profiler. Default behaviour is to patch all methods and start profiling once `.Build(bool run = true)` is called.
+Call `Profiler.Create()` to get a new instance of `ProfilerBuilder` and build your own Profiler. Default behavior is to patch all methods and start profiling after `.Build(bool run = true)` is called.
 ### Dependency Injection
 You can add the profiler to the `IServiceCollection` and manually call `.Start()` to patch and start profiling.
 ```
@@ -96,7 +102,7 @@ You can change this by providing a ``DisplayName`` parameter to the `[ProfileMe]
 ### Different Profilers
 You can use different profilers in the same project. 
 To do this, give each profiler a unique name and provide your `[ProfileMe]` attribute with the `ProfilerName` parameter.
-A profiler will only try to patch methods that have no `ProfilerName` parameter or his own.
+A profiler will only try to patch methods that either have no `ProfilerName` parameter or his own name.
 
 ```
 var profiler = Profiler.Create("uniquename")

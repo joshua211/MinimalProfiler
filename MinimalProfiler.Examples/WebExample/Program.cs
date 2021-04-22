@@ -21,7 +21,7 @@ namespace WebExample
                 .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders();
-                    logging.AddConsole();
+                    logging.AddConsole().SetMinimumLevel(LogLevel.Debug);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
