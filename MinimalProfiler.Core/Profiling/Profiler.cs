@@ -17,13 +17,14 @@ namespace MinimalProfiler.Core.Profiling
     public class Profiler
     {
         public string Name { get; private set; }
+        public bool IsRunning { get; private set; }
+        public bool IsPatched { get; private set; }
+        public ILogger log { get; private set; }
+        public Func<ProfilingResult, string> format { get; private set; }
 
-        private bool isRunning;
-        private bool isPatched;
-        private readonly List<PatchMethod> methods;
-        private readonly ILogger log;
+        private List<PatchMethod> methods;
+        public IEnumerable<string> PatchedMethods { get => methods?.Select(m => m.Method.Name); }
         private Harmony harmony;
-        private Func<ProfilingResult, string> format;
 
         /// <summary>
         /// The constructor used for dependency injection
@@ -71,7 +72,7 @@ namespace MinimalProfiler.Core.Profiling
             if (runOnBuild)
             {
                 PatchAll();
-                isRunning = true;
+                IsRunning = true;
             }
 
             GlobalProfilingState.GetInstance.RegisterProfiler(this);
@@ -97,12 +98,12 @@ namespace MinimalProfiler.Core.Profiling
         {
             Log("Starting profiling", LogLevel.Debug);
 
-            if (isRunning)
+            if (IsRunning)
                 return;
 
-            if (!isPatched)
+            if (!IsPatched)
                 PatchAll();
-            isRunning = true;
+            IsRunning = true;
         }
 
         /// <summary>
@@ -112,9 +113,20 @@ namespace MinimalProfiler.Core.Profiling
         {
             Log("Stopping profiling", LogLevel.Debug);
 
-            if (!isRunning)
+            if (!IsRunning)
                 return;
-            isRunning = false;
+            IsRunning = false;
+        }
+
+        /// <summary>
+        /// Removes the profiler from the global state and unpatches all methods
+        /// </summary>
+        public void Remove()
+        {
+            Stop();
+            GlobalProfilingState.GetInstance.RemoveProfiler(Name);
+            //TODO unpatch all methods
+            IsPatched = false;
         }
 
         private void PatchAll()
@@ -141,7 +153,7 @@ namespace MinimalProfiler.Core.Profiling
             }
             Log($"Patched {patchedMethods} methods", LogLevel.Debug);
 
-            isPatched = true;
+            IsPatched = true;
         }
 
         /// <summary>

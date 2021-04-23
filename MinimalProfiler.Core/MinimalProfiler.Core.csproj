@@ -4,13 +4,13 @@
     <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
     <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
     <PackageId>minimalprofiler</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Titel>Minimal Net Core Profiler </Titel>
     <Authors>Joshua Hillmann</Authors>
     <PackageTags>dotnetCore;Profiler;MinimalProfiler;Profiling;TimeMeasurement;ExecutionTime</PackageTags>
     <PackageDescription>
-      A minimal, code only profiler written in C# for net core. Can track method execution time 
-      by adding a single attribute to a method and log results.
+      A minimal, code only profiler written in C# for dotnet core. It Can track method execution time 
+      by adding a single attribute to any method.
     </PackageDescription>
     <PackageProjectUrl>
       https://github.com/joshua211/MinimalProfiler/tree/master
