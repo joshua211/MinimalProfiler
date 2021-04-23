@@ -34,6 +34,8 @@ namespace MinimalProfiler.Core.Profiling.Internal
             return GetDefault();
         }
 
+        public void RemoveProfiler(string name) => AllProfilers.Remove(name);
+
         public Profiler GetDefault() => AllProfilers.Values.First();
 
 
