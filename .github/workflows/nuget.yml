@@ -19,8 +19,10 @@ jobs:
         dotnet-version: 5.0.x
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: ./MinimalProfiler.Core/
     - name: Build
       run: dotnet build -c Release --no-restore
+      working-directory: ./MinimalProfiler.Core/
     - name: Publish  
       uses: brandedoutcast/publish-nuget@v2.5.2  
       with:   
