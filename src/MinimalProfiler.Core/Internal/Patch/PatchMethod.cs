@@ -1,7 +1,7 @@
 using System.Reflection;
-using MinimalProfiler.Core.Profiling.Enums;
+using MinimalProfiler.Core.Enums;
 
-namespace MinimalProfiler.Core.Profiling.Internal
+namespace MinimalProfiler.Core.Internal.Patch
 {
     internal class PatchMethod
     {

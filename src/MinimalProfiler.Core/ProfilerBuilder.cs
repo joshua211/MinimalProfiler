@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
+using MinimalProfiler.Core.Internal;
 
-namespace MinimalProfiler.Core.Profiling
+namespace MinimalProfiler.Core
 {
     /// <summary>
     /// Class to build the Profiler with fluid syntax
@@ -65,6 +65,13 @@ namespace MinimalProfiler.Core.Profiling
         /// </summary>
         /// <param name="run">Controlls wether the profiler should patch and start profiling on build</param>
         /// <returns>A new customized Profiler instance</returns>
-        public Profiler Build(bool run = true) => new Profiler(name, log, Assemblies, run, format);
+        public IProfiler Build(bool run = true) => new Profiler(name, log, Assemblies, run, format);
+        
+        /// <summary>
+        /// Create a new instance of ProfilerBuilder to create a Profiler with fluid syntax
+        /// </summary>
+        /// <param name="profilerName">The unique name of the profiler</param>
+        /// <returns>A default ProfilerBuilder instance with initial settings</returns>
+        public static ProfilerBuilder Create(string profilerName = "profiler") => new ProfilerBuilder(profilerName);
     }
 }

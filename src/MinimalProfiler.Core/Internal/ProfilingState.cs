@@ -1,19 +1,18 @@
-using System;
 using System.Diagnostics;
 
-namespace MinimalProfiler.Core.Profiling.Internal
+namespace MinimalProfiler.Core.Internal
 {
     internal class ProfilingState
     {
-        public Stopwatch Watch { get; set; }
+        private readonly Stopwatch Watch;
         public string DisplayName { get; set; }
         public string ProfilerName { get; set; }
 
         public ProfilingState(string displayName, string profilerName)
         {
             DisplayName = displayName;
-            Watch = new Stopwatch();
             ProfilerName = profilerName;
+            Watch = new Stopwatch();
         }
 
         public void Start()

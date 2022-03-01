@@ -1,6 +1,6 @@
-using System;
+using MinimalProfiler.Core.Internal;
 
-namespace MinimalProfiler.Core.Profiling
+namespace MinimalProfiler.Core
 {
     /// <summary>
     /// The result of a profiling execution

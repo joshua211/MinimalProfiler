@@ -1,13 +1,9 @@
-using System;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 using System.Threading.Tasks;
 using MinimalProfiler.Core.Attributes;
 
-namespace MinimalProfiler.Core.Profiling.Internal
+namespace MinimalProfiler.Core.Internal.Patch
 {
     internal static class ProfilingMethods
     {
@@ -20,7 +16,7 @@ namespace MinimalProfiler.Core.Profiling.Internal
 
         public static void StopProfiling(ProfilingState __state)
         {
-            var globalState = GlobalProfilingState.GetInstance;
+            var globalState = GlobalProfilingState.Instance;
             var result = __state.Stop();
             var profiler = string.IsNullOrEmpty(__state.ProfilerName) ?
                                             globalState.GetDefault() :
@@ -33,7 +29,7 @@ namespace MinimalProfiler.Core.Profiling.Internal
             var contin =
                 __result.ContinueWith(T =>
                 {
-                    var globalState = GlobalProfilingState.GetInstance;
+                    var globalState = GlobalProfilingState.Instance;
                     var result = __state.Stop();
                     var profiler = string.IsNullOrEmpty(__state.ProfilerName) ?
                                                     globalState.GetDefault() :

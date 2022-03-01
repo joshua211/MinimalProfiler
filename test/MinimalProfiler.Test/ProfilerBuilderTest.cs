@@ -1,7 +1,5 @@
 using System;
-using FluentAssertions;
 using Microsoft.Extensions.Logging;
-using MinimalProfiler.Core.Profiling;
 using NSubstitute;
 using Xunit;
 

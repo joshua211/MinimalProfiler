@@ -1,4 +1,4 @@
-namespace MinimalProfiler.Core.Profiling.Enums
+namespace MinimalProfiler.Core.Enums
 {
     internal enum ProfilingPatchType
     {
