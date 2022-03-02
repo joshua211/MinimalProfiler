@@ -5,8 +5,12 @@
     <projectFile>examples/GettingStarted/GettingStarted.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58f26f43-0e3f-4888-bf1f-d357ea954699" name="Changes" comment="dependency injection example">
-      <change beforePath="$PROJECT_DIR$/src/MinimalProfiler.Core/Models/ProfilingResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinimalProfiler.Core/Models/ProfilingResult.cs" afterDir="false" />
+    <list default="true" id="58f26f43-0e3f-4888-bf1f-d357ea954699" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MinimalProfiler.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MinimalProfiler.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/MinimalProfiler.Test/MinimalProfiler.Test.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/MinimalProfiler.Test/ProfilerBuilderTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/MinimalProfiler.Test/ProfilerTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/MinimalProfiler.Test/TestMethods.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +91,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1646244467917</updated>
-      <workItem from="1646244472017" duration="2215000" />
+      <workItem from="1646244472017" duration="2856000" />
+      <workItem from="1646260989035" duration="230000" />
     </task>
     <task id="LOCAL-00001" summary="new example and binding flags">
       <created>1646246642656</created>
@@ -103,14 +108,21 @@
       <option name="project" value="LOCAL" />
       <updated>1646246667324</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="result occurence">
+      <created>1646246751936</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1646246751936</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
-  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -127,7 +139,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="new example and binding flags" />
     <MESSAGE value="dependency injection example" />
-    <option name="LAST_COMMIT_MESSAGE" value="dependency injection example" />
+    <MESSAGE value="result occurence" />
+    <option name="LAST_COMMIT_MESSAGE" value="result occurence" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

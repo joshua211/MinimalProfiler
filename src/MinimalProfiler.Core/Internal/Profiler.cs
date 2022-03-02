@@ -14,7 +14,7 @@ namespace MinimalProfiler.Core.Internal;
 /// <summary>
 /// Main class of this application which is used to patch methods and execute result handlers
 /// </summary>
-internal class Profiler : IProfiler
+public class Profiler : IProfiler
 {
     public string Name { get; private set; }
     public bool IsRunning { get; private set; }
