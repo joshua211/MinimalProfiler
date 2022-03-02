@@ -1,6 +1,4 @@
-using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Threading;
 using MinimalProfiler.Core.Attributes;
 
 namespace GettingStarted

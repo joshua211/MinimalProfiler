@@ -12,37 +12,24 @@ using MinimalProfiler.Core.Models;
 namespace MinimalProfiler.Core.Internal;
 
 /// <summary>
-/// Main class of this application which is used to patch methods, evaluate results and print logs
+/// Main class of this application which is used to patch methods and execute result handlers
 /// </summary>
 internal class Profiler : IProfiler
 {
     public string Name { get; private set; }
     public bool IsRunning { get; private set; }
     public bool IsPatched { get; private set; }
-    public Func<ProfilingResult, string> Format { get; private set; }
 
     private IEnumerable<string> PatchedMethods => methods?.Select(m => m.Method.Name);
+    private List<IProfilingResultHandler> resultHandlers;
     private readonly List<PatchMethod> methods;
     private readonly ILogger log;
     private readonly Harmony harmony;
 
-
-    /// <summary>
-    /// The constructor used for dependency injection
-    /// </summary>
-    /// <param name="logger"></param>
-    public Profiler(ILogger<Profiler> logger)
-        : this("Profiler", logger, new[] {Assembly.GetEntryAssembly()}, false
-            , r => $"{r.DisplayName} took {r.Time.Ticks} ticks | {r.Time.Milliseconds} ms to execute")
-    {
-    }
-
-    internal Profiler(string name, ILogger log, IEnumerable<Assembly> assemblies, bool runOnBuild,
-        Func<ProfilingResult, string> format)
+    internal Profiler(string name, ILogger log, IEnumerable<Assembly> assemblies, bool runOnBuild, List<IProfilingResultHandler> resultHandlers)
     {
         Name = name;
-        Format = format;
-
+        this.resultHandlers = resultHandlers;
         this.log = log;
         harmony = new Harmony(name);
         methods = new List<PatchMethod>();
@@ -55,7 +42,7 @@ internal class Profiler : IProfiler
 
         foreach (var assembly in assemblies)
             methods.AddRange(assembly.GetTypes()
-                .SelectMany(t => t.GetMethods())
+                .SelectMany(t => t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
                 .Where(m =>
                 {
                     var attr = (IProfilerAttribute) m.GetCustomAttributes()
@@ -77,14 +64,15 @@ internal class Profiler : IProfiler
         }
 
         GlobalProfilingState.Instance.RegisterProfiler(this);
-        log.LogInformation("Profiler created: {Name}, {Assemblies}", Name, assemblies);
+        log.LogInformation("Profiler created: {Name}", Name);
     }
 
     public void AddProfilingResult(ProfilingResult result)
     {
-        var logString = Format(result);
-
-        //Log(logString, LogLevel.Information);
+        foreach (var handler in resultHandlers)    
+        {
+            handler.Handle(result);
+        }
     }
 
     /// <summary>

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using MinimalProfiler.Core.Profiling;
+﻿using System.Threading.Tasks;
+using MinimalProfiler.Core;
 
 namespace GettingStarted
 {
@@ -8,7 +7,7 @@ namespace GettingStarted
     {
         static async Task Main(string[] args)
         {
-            var profiler = Profiler.Create()
+            var profiler = ProfilerBuilder.Create()
                                     .UseAssemblies(typeof(Example).Assembly)
                                     .Build();
 

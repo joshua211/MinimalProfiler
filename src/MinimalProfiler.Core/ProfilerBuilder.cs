@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 using Microsoft.Extensions.Logging;
+using MinimalProfiler.Core.Handlers;
 using MinimalProfiler.Core.Internal;
 using MinimalProfiler.Core.Models;
 
@@ -15,7 +17,8 @@ namespace MinimalProfiler.Core
         private List<Assembly> Assemblies;
         private ILogger log;
         private string name;
-        private Func<ProfilingResult, string> format;
+        private Func<ProfilingResult, LogMessage> format;
+        private List<IProfilingResultHandler> handlers;
 
         internal ProfilerBuilder(string name)
         {
@@ -23,7 +26,10 @@ namespace MinimalProfiler.Core
             var provider = LoggerFactory.Create(b => b.AddConsole());
             log = provider.CreateLogger("Profiling");
             this.name = name;
-            format = (r => $"{r.DisplayName} took {r.Time.Ticks} ticks | {r.Time.Milliseconds} ms to execute");
+            format = r =>
+                new LogMessage($"{r.DisplayName} took {r.Time.Ticks} ticks | {r.Time.Milliseconds} ms to execute",
+                    LogLevel.Information);
+            handlers = new List<IProfilingResultHandler>();
         }
 
         /// <summary>
@@ -39,25 +45,37 @@ namespace MinimalProfiler.Core
         }
 
         /// <summary>
+        /// Add a new result handler to the profiler. LogResultHandler is added by default.
+        /// </summary>
+        /// <param name="handler"></param>
+        /// <returns></returns>
+        public ProfilerBuilder UseResultHandler(IProfilingResultHandler handler)
+        {
+            handlers.Add(handler);
+            
+            return this;
+        }
+
+        /// <summary>
         /// Tells the profiler which format to use for logging. 
         /// Default is 'DisplayName took {ticks} ticks | {ms} ms to execute}'
         /// </summary>
         /// <param name="format">The function used to create the log string</param>
         /// <returns></returns>
-        public ProfilerBuilder UseFormat(Func<ProfilingResult, string> format)
+        public ProfilerBuilder UseFormat(Func<ProfilingResult, LogMessage> newFormat)
         {
-            this.format = format;
+            format = newFormat;
             return this;
         }
 
         /// <summary>
         /// Tells the profiler which ILogger to use. Default logger is the console
         /// </summary>
-        /// <param name="log">Any ILogger implementation</param>
+        /// <param name="logger">Any ILogger implementation</param>
         /// <returns></returns>
-        public ProfilerBuilder UseLog(ILogger log)
+        public ProfilerBuilder UseLogger(ILogger logger)
         {
-            this.log = log;
+            this.log = logger;
             return this;
         }
 
@@ -66,8 +84,12 @@ namespace MinimalProfiler.Core
         /// </summary>
         /// <param name="run">Controlls wether the profiler should patch and start profiling on build</param>
         /// <returns>A new customized Profiler instance</returns>
-        public IProfiler Build(bool run = true) => new Profiler(name, log, Assemblies, run, format);
-        
+        public IProfiler Build(bool run = true)
+        {
+            handlers.Add(new LogResultHandler(format, log));
+            return new Profiler(name, log, Assemblies, run, handlers);
+        }
+
         /// <summary>
         /// Create a new instance of ProfilerBuilder to create a Profiler with fluid syntax
         /// </summary>

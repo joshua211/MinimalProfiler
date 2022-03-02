@@ -13,5 +13,4 @@ public interface IProfiler
     string Name { get; }
     bool IsPatched { get; }
     bool IsRunning { get; }
-    Func<ProfilingResult, string> Format { get; }
 }
