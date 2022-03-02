@@ -1,5 +1,6 @@
 ﻿using System;
 using MinimalProfiler.Core.Internal;
+using MinimalProfiler.Core.Models;
 
 namespace MinimalProfiler.Core;
 

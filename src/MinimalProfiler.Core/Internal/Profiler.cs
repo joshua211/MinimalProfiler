@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using MinimalProfiler.Core.Attributes;
 using MinimalProfiler.Core.Enums;
 using MinimalProfiler.Core.Internal.Patch;
+using MinimalProfiler.Core.Models;
 
 namespace MinimalProfiler.Core.Internal;
 

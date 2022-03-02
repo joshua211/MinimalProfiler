@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
 using MinimalProfiler.Core.Internal;
+using MinimalProfiler.Core.Models;
 
 namespace MinimalProfiler.Core
 {

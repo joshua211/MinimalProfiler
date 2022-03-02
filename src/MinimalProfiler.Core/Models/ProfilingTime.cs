@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace MinimalProfiler.Core.Internal
+namespace MinimalProfiler.Core.Models
 {
     /// <summary>
     /// Model class to store information about profiling time

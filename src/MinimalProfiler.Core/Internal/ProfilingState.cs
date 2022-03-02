@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using MinimalProfiler.Core.Models;
 
 namespace MinimalProfiler.Core.Internal
 {

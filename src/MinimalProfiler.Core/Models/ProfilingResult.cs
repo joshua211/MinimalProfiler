@@ -1,6 +1,4 @@
-using MinimalProfiler.Core.Internal;
-
-namespace MinimalProfiler.Core
+namespace MinimalProfiler.Core.Models
 {
     /// <summary>
     /// The result of a profiling execution
