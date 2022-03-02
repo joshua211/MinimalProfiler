@@ -5,71 +5,8 @@
     <projectFile>examples/GettingStarted/GettingStarted.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58f26f43-0e3f-4888-bf1f-d357ea954699" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/MinimalProfiler.Core/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MinimalProfiler.Core/Handlers/LogResultHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MinimalProfiler.Core/IProfilingResultHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MinimalProfiler.Core/Models/LogMessage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MinimalProfiler.dir/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MinimalProfiler.dir/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MinimalProfiler.dir/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Folder.DotSettings.user" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/GettingStarted/Example.cs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/GettingStarted/Example.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/GettingStarted/GettingStarted.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/examples/GettingStarted/GettingStarted.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/GettingStarted/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/examples/GettingStarted/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/Controllers/HomeController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/Models/ErrorViewModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/Program.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/Properties/launchSettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/Startup.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/Views/Home/Index.cshtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/Views/Home/Privacy.cshtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/Views/Shared/Error.cshtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/Views/Shared/_Layout.cshtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/Views/Shared/_ValidationScriptsPartial.cshtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/Views/_ViewImports.cshtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/Views/_ViewStart.cshtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/WebExample.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/appsettings.Development.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/appsettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/css/site.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/js/site.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/css/bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/js/bootstrap.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/jquery-validation/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/jquery-validation/dist/additional-methods.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/jquery-validation/dist/additional-methods.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/jquery-validation/dist/jquery.validate.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/jquery/LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/jquery/dist/jquery.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/jquery/dist/jquery.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/WebExample/wwwroot/lib/jquery/dist/jquery.min.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MinimalProfiler.Core/IProfiler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinimalProfiler.Core/IProfiler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MinimalProfiler.Core/Internal/Profiler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinimalProfiler.Core/Internal/Profiler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MinimalProfiler.Core/ProfilerBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinimalProfiler.Core/ProfilerBuilder.cs" afterDir="false" />
+    <list default="true" id="58f26f43-0e3f-4888-bf1f-d357ea954699" name="Changes" comment="dependency injection example">
+      <change beforePath="$PROJECT_DIR$/src/MinimalProfiler.Core/Models/ProfilingResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinimalProfiler.Core/Models/ProfilingResult.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,8 +87,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1646244467917</updated>
-      <workItem from="1646244472017" duration="1822000" />
+      <workItem from="1646244472017" duration="2215000" />
     </task>
+    <task id="LOCAL-00001" summary="new example and binding flags">
+      <created>1646246642656</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1646246642656</updated>
+    </task>
+    <task id="LOCAL-00002" summary="dependency injection example">
+      <created>1646246667324</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1646246667324</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,25 +112,26 @@
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="new example and binding flags" />
+    <MESSAGE value="dependency injection example" />
+    <option name="LAST_COMMIT_MESSAGE" value="dependency injection example" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/src/MinimalProfiler.Core/Internal/Profiler.cs</url>
-          <line>118</line>
-          <properties documentPath="C:\Projects\MinimalProfiler\src\MinimalProfiler.Core\Internal\Profiler.cs" initialLine="118" containingFunctionPresentation="method 'PatchAll'">
-            <startOffsets>
-              <option value="3926" />
-            </startOffsets>
-            <endOffsets>
-              <option value="4010" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/src/MinimalProfiler.Core/Internal/Profiler.cs</url>
           <line>43</line>
@@ -191,6 +144,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/src/MinimalProfiler.Core/Internal/Profiler.cs</url>
+          <line>59</line>
+          <properties documentPath="C:\Projects\MinimalProfiler\src\MinimalProfiler.Core\Internal\Profiler.cs" initialLine="59" containingFunctionPresentation="constructor 'Profiler'">
+            <startOffsets>
+              <option value="2561" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2576" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

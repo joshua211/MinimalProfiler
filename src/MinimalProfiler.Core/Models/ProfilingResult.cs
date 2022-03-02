@@ -1,3 +1,5 @@
+using System;
+
 namespace MinimalProfiler.Core.Models
 {
     /// <summary>
@@ -17,10 +19,16 @@ namespace MinimalProfiler.Core.Models
         /// <value></value>
         public string DisplayName { get; private set; }
 
-        public ProfilingResult(string displayName, ProfilingTime time)
+        /// <summary>
+        /// The DateTime of this result occurence
+        /// </summary>
+        public DateTime Occurence { get; private set; }
+
+        public ProfilingResult(string displayName, ProfilingTime time, DateTime occurence)
         {
             DisplayName = displayName;
             Time = time;
+            Occurence = occurence;
         }
     }
 }

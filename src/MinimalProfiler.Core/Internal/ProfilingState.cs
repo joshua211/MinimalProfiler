@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using MinimalProfiler.Core.Models;
 
@@ -24,7 +25,7 @@ namespace MinimalProfiler.Core.Internal
         public ProfilingResult Stop()
         {
             Watch.Stop();
-            return new ProfilingResult(DisplayName, new ProfilingTime(Watch));
+            return new ProfilingResult(DisplayName, new ProfilingTime(Watch), DateTime.Now);
         }
     }
 }
