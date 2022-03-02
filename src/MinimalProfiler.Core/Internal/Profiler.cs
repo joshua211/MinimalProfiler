@@ -51,7 +51,7 @@ internal class Profiler : IProfiler
             throw new Exception($"A profiler with the name '{name}' already exists for this application");
 
         if (!assemblies.Any())
-            Log("No assemblies specified, so no profiling can be done", LogLevel.Warning);
+            log.LogWarning("No assemblies specified, so no profiling can be done");
 
         foreach (var assembly in assemblies)
             methods.AddRange(assembly.GetTypes()
@@ -68,7 +68,7 @@ internal class Profiler : IProfiler
                         ? new PatchMethod(m, ProfilingPatchType.Normal)
                         : new PatchMethod(m, ProfilingPatchType.Async);
                 }));
-        Log($"Found {methods.Count} profileable methods in {assemblies.Count()} assemblies", LogLevel.Debug);
+        log.LogDebug("Found {Methods} profileable methods in {Count} assemblies", methods.Count, assemblies.Count());
 
         if (runOnBuild)
         {
@@ -77,19 +77,14 @@ internal class Profiler : IProfiler
         }
 
         GlobalProfilingState.Instance.RegisterProfiler(this);
-        Log($"Profiler created: {log}, {assemblies}");
+        log.LogInformation("Profiler created: {Name}, {Assemblies}", Name, assemblies);
     }
 
     public void AddProfilingResult(ProfilingResult result)
     {
         var logString = Format(result);
 
-        Log(logString, LogLevel.Information);
-    }
-
-    private void Log(string content, LogLevel level = LogLevel.Trace, Exception e = null)
-    {
-        log.Log(level, content, e);
+        //Log(logString, LogLevel.Information);
     }
 
     /// <summary>
@@ -97,7 +92,7 @@ internal class Profiler : IProfiler
     /// </summary>
     public void Start()
     {
-        Log("Starting profiling", LogLevel.Debug);
+        log.LogInformation("Starting profiling for {Name}", Name);
 
         if (IsRunning)
             return;
@@ -112,7 +107,7 @@ internal class Profiler : IProfiler
     /// </summary>
     public void Stop()
     {
-        Log("Stopping profiling", LogLevel.Debug);
+        log.LogInformation("Stopping profiling for {Name}", Name);
 
         if (!IsRunning)
             return;
@@ -124,6 +119,7 @@ internal class Profiler : IProfiler
     /// </summary>
     public void Remove()
     {
+        log.LogInformation("Removing profiler {Name}", Name);
         Stop();
         GlobalProfilingState.Instance.RemoveProfiler(Name);
         //TODO unpatch all methods
@@ -143,18 +139,17 @@ internal class Profiler : IProfiler
             try
             {
                 var postfix = info.PatchType == ProfilingPatchType.Normal ? profilerPostfix : profilerPostfixAsync;
-                Log($"Trying to patch {method.Name} with {profilerPrefix.Name} and {postfix.Name}");
+                log.LogDebug("Trying to patch {MethodName} with {PrefixName} and {PostfixName}", method.Name, profilerPrefix.Name, postfix.Name);
                 harmony.Patch(info.Method, new HarmonyMethod(profilerPrefix), new HarmonyMethod(postfix));
                 patchedMethods++;
             }
             catch (Exception e)
             {
-                Log($"Failed to patch {method.Name}", LogLevel.Critical, e);
+                log.LogError(e,"Failed to patch {MethodName}",method.Name);
             }
         }
 
-        Log($"Patched {patchedMethods} methods", LogLevel.Debug);
-
+        log.LogDebug("Patched {Count} methods", patchedMethods);
         IsPatched = true;
     }
 }
